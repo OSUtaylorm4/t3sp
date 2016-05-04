@@ -1,0 +1,90 @@
+<table class="table table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>Day</th>
+				<th>Open</th>
+				<th>Close</th>
+				<th>Frequent locations</th>
+			</tr>
+		</thead>
+
+		<tbody>
+				<tr>
+					<td>Sunday</td>
+					<% if @vendor.sun_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.sun_open %></td>
+						<td><%= @vendor.sun_close %></td>
+						<td><%= @vendor.sun_loc %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Monday</td>
+					<% if @vendor.mon_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.mon_open %></td>
+						<td><%= @vendor.mon_close %></td>
+						<td><%= @vendor.mon_loc %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Tuesday</td>
+					<% if @vendor.tues_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.tues_open %></td>
+						<td><%= @vendor.tues_close %></td>
+						<td><%= @vendor.tues_loc %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Wednesday</td>
+					<% if @vendor.weds_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.weds_open %></td>
+						<td><%= @vendor.weds_close %></td>
+						<td><%= @vendor.weds_loc %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Thursday</td>
+					<% if @vendor.thurs_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.thurs_open %></td>
+						<td><%= @vendor.thurs_close %></td>
+						<td><%= @vendor.thurs_loc %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Friday</td>
+					<% if @vendor.fri_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.fri_open %></td>
+						<td><%= @vendor.fri_close %></td>
+						<td><%= @vendor.fri_loc %></td>
+					<% end %>
+				</tr>
+				<tr>
+					<td>Saturday</td>
+					<% if @vendor.sat_open.blank? %>
+						<td> Closed</td>
+						<td> Closed</td>
+					<% else %>
+						<td><%= @vendor.sat_open %></td>
+						<td><%= @vendor.sat_close %></td>
+						<td><%= @vendor.sat_loc %></td>
+					<% end %>
+				</tr>
+		</tbody>
+	</table>

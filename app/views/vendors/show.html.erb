@@ -1,0 +1,111 @@
+<% provide(:title, @vendor.username) %>
+
+
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <% if @vendor.image.blank? %>
+          <%= gravatar_for @vendor %>
+        <% else %>
+          <%= image_tag @vendor.image_url %>
+        <% end %>
+        <h3><%= @vendor.company %></h3>
+        <h4>Website: <%= link_to @vendor.website, @vendor.website %></h4>
+        <h4>Phone: <%= @vendor.phone %></h4>
+        <h4>Status: 
+          <% if @vendor.status == false %>
+            <FONT COLOR="FA0505">CLOSED</FONT>
+          <% else %>
+            <FONT COLOR="07A31E">OPEN</FONT>
+          <% end %>
+        </h4>
+      </h1>
+    </section>
+  </aside>
+  <% if @vendor.menu2.blank? %>
+    <div class="col-md-8" > 
+      <%= image_tag @vendor.menu1_url, :class => "center-block", :target => "_blank" %>
+    </div>
+  <% else %>
+    <div class="col-md-4">
+    	<%= image_tag @vendor.menu1_url %>
+    </div>
+    <div class="col-md-4">
+    	<%= image_tag @vendor.menu2_url %>
+    </div>
+  <% end %>
+</div>
+<div class="row">
+	<aside class="col-md-4">
+		<div id="map" style='width: 300px; height: 300px;'></div>
+	</aside>
+	<div class="col-md-4">
+		<%= link_to "Write a Review", new_vendor_review_path(@vendor), class: "btn btn-primary" %>
+	</div>
+	<div class="col-md-4">
+    <% if @reviews.blank? %>
+      <h3> Be the first to write a review!</h3>
+    <% else %>
+      <h4> See what others think about us:</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-md-3"></th>
+            <th class="col-md-9"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @reviews.each do |review| %>
+            <tr>
+              <td>
+                <h4>
+                  <%= "#{review.user.username.capitalize}" %>
+                </h4>
+                <p><%= review.created_at.strftime("%-m/%-d/%-y") %></p>
+              </td>
+
+              <td>
+                <div class="star-rating" data-score= <%= review.rating %> ></div>
+                <p><%= h(review.comment).gsub(/\n/, '<br/>').html_safe %></p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+	</div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+  </br></br>
+    <%= render 'vendors/hours' %>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  var handler = Gmaps.build('Google');
+
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, 
+      function(){
+        var marker = handler.addMarker({
+          lat: <%= @vendor.latitude %>,
+          lng: <%= @vendor.longitude %>
+      });
+      handler.map.centerOn(marker);
+      handler.getMap().setZoom(12);
+  }); 
+
+</script> 
+
+<script>
+  $('.star-rating').raty({
+    path: 'https://s3-us-west-2.amazonaws.com/taco-truck-tracker-app/stars',
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    }
+  });
+</script>
